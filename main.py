@@ -1,3 +1,11 @@
+
+
+"""
+Programme fait par Albert Cloutier
+groupe 406
+combat des monstres
+"""
+
 #librairies importées
 from random import randint
 from time import sleep
