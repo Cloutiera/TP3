@@ -1,0 +1,106 @@
+"""
+Programme fait par Albert Cloutier
+groupe 406
+combat des monstres
+"""
+#pour qu'il y ait plusieurs monstres derrière la porte, on pourrait faire un classe monstre.
+#librairies importées
+from random import randint
+from time import sleep
+#variables
+vies = 20
+force_adversaire = 0
+resultat = 0
+resultat_adversaire = 0
+adversaire = 0
+numero_combat = 0
+victoires = 0
+defaites = 0
+sequence_victoires = 0
+lancer_adversaire = 0
+lancer = 0
+continuer = True
+afficher_regles = False
+
+
+
+
+while continuer:
+
+    if afficher_regles == False:
+
+        # informations de départ
+        adversaire = adversaire + 1
+        print("Vous jouez contre le monstre %d\n"%(adversaire))
+        if sequence_victoires %3 == 0 and sequence_victoires != 0:
+            force_adversaire = randint(4,5)
+        else:
+            force_adversaire = randint(1,5)
+        print("Vous tombez contre un adversaire de difficulté %d\n" %(force_adversaire))
+        print("Il vous reste %d vies\n" % (vies))
+        print("Vous avez une série de victoires consécutives de %d\n" %(sequence_victoires))
+        print("Vous avez fait %d combats avec %d victoire(s) et %d défaite(s).\n" %(numero_combat, victoires, defaites))
+    else:
+        afficher_regles = False
+    choix = int(input("Que voulez-vous faire? \n     1 - Combattre cet adversaire\n     2 - Contourner cet adversaire et ouvrir une autre porte (-1 vie)\n     3 - Afficher les règles de jeu\n     4 - Quitter la partie\n"))
+
+    if (choix == 1):
+        numero_combat += 1
+        print("On lance les dés")
+        lancer = 0
+        lancer_adversaire = 0
+        resultat = 0
+        resultat_adversaire = 0
+        for i in range(1,2):
+            lancer = randint(1,6)
+            resultat = resultat + lancer
+        sleep(2)
+        print("Le résultat est" ,resultat)
+        print("on lance les dés de l'adversaire")
+        for k in range(1,2):
+            lancer_adversaire = randint(1, 6)
+            resultat_adversaire = resultat_adversaire + lancer_adversaire
+        sleep(2)
+        print("le résultat est",resultat_adversaire)
+        sleep(2)
+        if resultat > resultat_adversaire:
+            vies = vies + force_adversaire
+            print("Vous avez gagné. Il vous reste %d vies\n\n" % (vies))
+            victoires += 1
+            sequence_victoires += 1
+            sleep(2)
+        else:
+            vies = vies - force_adversaire
+            print("Vous avez perdu. Il vous reste %d vies\n\n" % (vies))
+            defaites += 1
+            sequence_victoires = 0
+            sleep(2)
+
+    elif (choix == 2):
+        vies = vies - 1
+    elif (choix == 3):
+        print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire. Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire. Une défaite a lieu lorsque la valeur du dé lancé par l’usager est inférieure ou égale à la force de l’adversaire.  Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0. \nL’usager peut combattre ou éviter chaque adversaire, dans le cas de l’évitement, il y a une pénalité de 1 point de vie.")
+        continuer_regles = input("\nappuyez sur entrée pour continuer")
+        afficher_regles = True
+    elif(choix == 4):
+        print("Merci et au revoir")
+        sleep(3)
+        exit()
+    if (vies <= 0):
+        print("La partie est terminée vous avez vaincu %d monstres" % (victoires))
+        continuer_demande = int(input("voulez-vous continer \n1 - oui\n2 - non"))
+        if continuer_demande == 1:
+            continuer = True
+            vies = 20
+            force_adversaire = 0
+            resultat = 0
+            resultat_adversaire = 0
+            adversaire = 0
+            numero_combat = 0
+            victoires = 0
+            defaites = 0
+            sequence_victoires = 0
+            lancer_adversaire = 0
+            lancer = 0
+        else:
+            continuer = False
